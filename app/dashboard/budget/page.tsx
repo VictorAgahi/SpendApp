@@ -63,7 +63,7 @@ export default function Budget() {
                 <Card className="bg-opacity-80 bg-gray-800 text-white p-8 rounded-lg shadow-lg">
                     <h1 className="text-4xl font-extrabold text-white mb-4">Mettez à jour votre solde bancaire</h1>
                     <p className="text-xl text-gray-300 mb-6">
-                        Pour mieux gérer votre budget, veuillez entrer le montant d'argent que vous avez actuellement dans votre compte en banque.
+                        Pour mieux gérer votre budget, veuillez entrer le montant d&#39;argent que vous avez actuellement dans votre compte en banque.
                         <br />
                         Ce montant nous aidera à vous offrir une expérience personnalisée et à suivre vos finances plus efficacement.
                     </p>

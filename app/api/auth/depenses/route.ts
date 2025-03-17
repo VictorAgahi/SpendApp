@@ -60,7 +60,7 @@ export async function POST(request: Request) {
                 message: "Dépense créée avec succès",
                 userMoney: newMoney,
                 expense: {
-                    id: expenseId.toString(), // Convertir l'ID en chaîne de caractères
+                    id: expenseId.toString(),
                     name: expense.properties.name,
                     initialPrice: expense.properties.initialPrice,
                     currentPrice: expense.properties.currentPrice,

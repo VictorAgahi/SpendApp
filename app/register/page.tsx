@@ -137,7 +137,7 @@ export default function Register() {
                             type="submit"
                             className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition transform hover:scale-105"
                         >
-                            S'inscrire
+                            S&#39;inscrire
                         </Button>
                     </form>
 

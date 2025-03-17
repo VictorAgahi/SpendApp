@@ -2,11 +2,11 @@ import { NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 import driver from "@/lib/neo4j";
 
+// Fonction de vérification du token et extraction de l'email
 async function verifyTokenAndGetEmail(request: Request): Promise<string> {
     const token = request.headers.get("Authorization")?.split(" ")[1];
     if (!token) {
         throw new Error("Token manquant");
-
     }
 
     try {
@@ -18,10 +18,10 @@ async function verifyTokenAndGetEmail(request: Request): Promise<string> {
     }
 }
 
+// Fonction pour récupérer une dépense par son ID
 async function getExpenseById(email: string, id: number) {
     const session = driver.session();
     try {
-
         const result = await session.run(
             `MATCH (u:User {email: $email})-[:HAS_EXPENSE]->(e:Expense) 
              WHERE ID(e) = $id RETURN e`,
@@ -33,9 +33,12 @@ async function getExpenseById(email: string, id: number) {
     }
 }
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(
+    request: Request,
+    { params }: { params: Promise<{ id: string }> }
+) {
     try {
-        const { id } = await params;
+        const id = (await params).id;
         const email = await verifyTokenAndGetEmail(request);
         const newId = parseInt(id);
         if (isNaN(newId)) return NextResponse.json({ message: "ID invalide" }, { status: 400 });
@@ -49,9 +52,12 @@ export async function GET(request: Request, { params }: { params: { id: string }
     }
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(
+    request: Request,
+    { params }: { params: Promise<{ id: string }> }
+) {
     try {
-        const { id } = await params;
+        const id = (await params).id;
         const email = await verifyTokenAndGetEmail(request);
         const newId = parseInt(id);
         if (isNaN(newId)) return NextResponse.json({ message: "ID invalide" }, { status: 400 });
@@ -64,7 +70,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
         await session.run(
             `MATCH (e:Expense) WHERE ID(e) = $id 
              SET e.name = $name, e.currentPrice = $currentPrice, e.deadline = $deadline`,
-            { id:newId, ...data }
+            { id: newId, ...data }
         );
         await session.close();
 
@@ -74,9 +80,12 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(
+    request: Request,
+    { params }: { params: Promise<{ id: string }> }
+) {
     try {
-        const { id } = await params;
+        const id = (await params).id;
         const email = await verifyTokenAndGetEmail(request);
         const newId = parseInt(id);
         if (isNaN(newId)) return NextResponse.json({ message: "ID invalide" }, { status: 400 });
@@ -89,7 +98,7 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
             `MATCH (u:User {email: $email})-[r:HAS_EXPENSE]->(e:Expense) 
              WHERE ID(e) = $id 
              DETACH DELETE e`,
-            { email, id:newId }
+            { email, id: newId }
         );
         await session.close();
 

@@ -6,7 +6,6 @@ import { UserDTO } from "@/model/userModelDTO";
 import { ExpenseDTO } from "@/model/expenseDTO";
 import { motion } from "framer-motion";
 import { Carousel } from "react-responsive-carousel";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
