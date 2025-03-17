@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  neo4j:
+    image: neo4j:4.4
+    container_name: spendapp_neo4j
+    environment:
+      - NEO4J_AUTH=neo4j/password
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4j_data:/data
+    networks:
+      - spendapp_network
+
+volumes:
+  neo4j_data:
+    driver: local
+
+networks:
+  spendapp_network:
+    driver: bridge
