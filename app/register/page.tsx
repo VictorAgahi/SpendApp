@@ -142,6 +142,7 @@ export default function Register() {
                         <Button
                             type="submit"
                             className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition transform hover:scale-105"
+                            disabled={loading}
                         >
                             {loading ? "Chargement..." : "S'inscrire"}
                         </Button>
@@ -151,7 +152,6 @@ export default function Register() {
                         <Button
                             onClick={() => router.push("/")}
                             className="w-full py-2 text-white bg-black border border-gray-300 rounded-lg hover:bg-gray-700 transition transform hover:scale-105"
-                            disabled={loading}
                         >
                             Acceuil
                         </Button>
