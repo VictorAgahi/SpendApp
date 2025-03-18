@@ -57,10 +57,6 @@ export default function Dashboard() {
         }
     }, [user]);
 
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        router.push("/login");
-    };
     const handleUpdateBalance = () => {
         router.push("/dashboard/budget");
     };
@@ -97,18 +93,18 @@ export default function Dashboard() {
         return amount < 50 ? "text-red-600" : "text-green-500";
     };
 
-    if (loading) return <div className="text-center mt-10 text-gray-800">Chargement...</div>;
+    if (loading) return <div className="text-center mt-10 text-white">Chargement...</div>;
 
     if (!user) return null;
 
     return (
-        <div className="min-h-screen flex flex-col items-center bg-gradient-to-r from-gray-900 to-gray-700 p-6 sm:p-8 md:p-12 transition-all">
+        <div className="min-h-screen flex flex-col items-center bg-gradient-to-r bg-transparent p-2 sm:p-8 md:p-12 transition-all">
             <motion.h1
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="text-5xl font-extrabold text-center text-white mb-6 sm:text-6xl">
-                Bienvenue, {user.nom} {user.prenom} !
+                className="text-3xl font-extrabold text-center text-white mb-6 sm:text-6xl">
+                Bienvenue, {user.prenom} {user.nom} !
             </motion.h1>
 
             <motion.div
@@ -149,15 +145,15 @@ export default function Dashboard() {
                     className="w-full max-w-2xl shadow-lg rounded-lg overflow-hidden"
                 >
                     {expenses.map((expense, index) => (
-                        <div key={expense.id || index} className="p-6 bg-gray-800 text-white rounded-lg relative flex flex-col items-center">
+                        <div key={expense.id || index} className="p-4 bg-gray-800 text-white rounded-lg relative flex flex-col items-center">
                             <h3 className="text-2xl font-semibold mb-4">{expense.name}</h3>
                             <p className="text-lg">Prix initial : {expense.initialPrice} €</p>
                             <p className="text-lg">Prix actuel : {expense.currentPrice} €</p>
                             <p className="text-lg">
-                                Échéance : {new Date(expense.deadline).toLocaleDateString()} {new Date(expense.deadline).toLocaleTimeString()}
+                                Échéance : {new Date(expense.deadline).toLocaleDateString()}  {new Date(expense.deadline).toLocaleTimeString()}
                             </p>
 
-                            <div className="mt-4 flex justify-between w-full pt-7 rounded-b-lg">
+                            <div className="mt-4 flex justify-between w-full pt-3 rounded-b-lg">
                                 <Button
                                     onClick={() => handleModifyExpense(expense.id)}
                                     className="py-3 px-6 bg-blue-700 text-white rounded-lg hover:bg-blue-900 transition ease-in-out duration-300 transform hover:scale-105 w-5/12">
@@ -175,12 +171,6 @@ export default function Dashboard() {
                     ))}
                 </Carousel>
             )}
-
-            <Button
-                onClick={handleLogout}
-                className="mt-8 px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all ease-in-out duration-300 transform hover:scale-105">
-                Se Déconnecter
-            </Button>
         </div>
     );
 }

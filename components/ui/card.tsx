@@ -4,14 +4,14 @@ import { cn } from "@/lib/utils"
 
 function Card({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div
-      data-slot="card"
-      className={cn(
-        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm",
-        className
-      )}
-      {...props}
-    />
+      <div
+          data-slot="card"
+          className={cn(
+              "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm w-full", // Ajout de w-full
+              className
+          )}
+          {...props}
+      />
   )
 }
 
@@ -63,11 +63,11 @@ function CardAction({ className, ...props }: React.ComponentProps<"div">) {
 
 function CardContent({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div
-      data-slot="card-content"
-      className={cn("px-6", className)}
-      {...props}
-    />
+      <div
+          data-slot="card-content"
+          className={cn("px-6 overflow-y-auto flex-1", className)} // Ajout de overflow-y-auto et flex-1
+          {...props}
+      />
   )
 }
 

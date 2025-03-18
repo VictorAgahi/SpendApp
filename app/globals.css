@@ -121,3 +121,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+@supports (height: 100dvh) {
+  .min-h-screen {
+    min-height: 100dvh;
+  }
+}
+
+input {
+  font-size: 16px;
+}

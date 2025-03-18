@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 
 export default function Depenses() {
@@ -46,6 +46,7 @@ export default function Depenses() {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     name,
@@ -64,61 +65,74 @@ export default function Depenses() {
                 setError(data.message || "Erreur lors de la création de la dépense.");
             }
         } catch (error) {
-            setError("Une erreur s'est produite lors de l'enregistrement de la dépense. --> " + error);
+            setError("Une erreur s'est produite lors de l'enregistrement de la dépense.");
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center bg-gradient-to-r from-gray-900 to-gray-800 p-6 md:p-12 transition-all">
-            <h1 className="text-4xl font-bold text-center text-white mb-8">Ajouter une Dépense</h1>
+        <div className="max-w-md w-full text-center">
+        <div className="flex items-center justify-center mt-2 ">
+            <Card className="text-white p-6 rounded-lg shadow-lg max-w-md w-full text-center bg-transparent">
+                <h1 className="text-4xl font-extrabold text-white mb-4">Ajouter une Dépense</h1>
+                <p className="text-xl text-gray-300 mb-6">
+                    Remplissez les informations ci-dessous pour enregistrer une nouvelle dépense.
+                </p>
 
-            <Card className="bg-gray-900 text-white shadow-xl w-full max-w-md">
-                <CardHeader>
-                    <CardTitle>Nouvelle Dépense</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    {error && <p className="text-red-400 mb-4 text-sm">{error}</p>}
+                {error && <div className="text-red-600 mt-2 text-lg">{error}</div>}
 
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        <Input
-                            type="text"
-                            placeholder="Nom de la dépense"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
-                        />
+                <form onSubmit={handleSubmit} className="mt-3 space-y-4">
+                    <Input
+                        type="text"
+                        placeholder="Nom de la dépense"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="w-full p-3 border border-gray-300 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    />
 
-                        <Input
-                            type="number"
-                            placeholder="Budget (€)"
-                            value={initialPrice}
-                            onChange={(e) => setInitialPrice(e.target.value)}
-                            required
-                            min="0"
-                        />
+                    <Input
+                        type="number"
+                        placeholder="Budget (€)"
+                        value={initialPrice}
+                        onChange={(e) => setInitialPrice(e.target.value)}
+                        min="0"
+                        className="w-full p-2 border border-gray-300 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    />
 
-                        <Input
-                            type="number"
-                            placeholder="Nombre de jours avant deadline"
-                            value={days}
-                            onChange={(e) => setDays(e.target.value)}
-                            required
-                            min="1"
-                        />
+                    <Input
+                        type="number"
+                        placeholder="Nombre de jours avant deadline"
+                        value={days}
+                        onChange={(e) => setDays(e.target.value)}
+                        min="1"
+                        className="w-full p-2 border border-gray-300 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    />
 
-                        <div className="flex items-center justify-between">
-                            <label className="text-sm">Renouvelable</label>
-                            <Switch checked={renewable} onCheckedChange={setRenewable} />
-                        </div>
+                    <div className="flex items-center justify-between">
+                        <label className="text-sm">Renouvelable</label>
+                        <Switch checked={renewable} onCheckedChange={setRenewable} />
+                    </div>
 
-                        <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700" disabled={loading}>
-                            {loading ? "Enregistrement..." : "Ajouter la Dépense"}
-                        </Button>
-                    </form>
-                </CardContent>
+                    <Button
+                        type="submit"
+                        className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"
+                        disabled={loading}
+                    >
+                        {loading ? "Enregistrement..." : "Ajouter la Dépense"}
+                    </Button>
+                </form>
+
+                <div className="mt-6 space-y-2">
+                    <Button
+                        onClick={() => router.push("/dashboard")}
+                        className="w-full py-2 text-white bg-black border border-gray-300 rounded-lg hover:bg-gray-700 transition transform hover:scale-105"
+                    >
+                        Retour au dashboard
+                    </Button>
+                </div>
             </Card>
         </div>
+            </div>
     );
 }

@@ -58,45 +58,51 @@ export default function Budget() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-gray-900 to-gray-700 p-6 sm:p-8 md:p-12">
-            <div className="max-w-md w-full text-center">
-                <Card className="bg-opacity-80 bg-gray-800 text-white p-8 rounded-lg shadow-lg">
-                    <h1 className="text-4xl font-extrabold text-white mb-4">Mettez à jour votre solde bancaire</h1>
-                    <p className="text-xl text-gray-300 mb-6">
-                        Pour mieux gérer votre budget, veuillez entrer le montant d&#39;argent que vous avez actuellement dans votre compte en banque.
-                        <br />
-                        Ce montant nous aidera à vous offrir une expérience personnalisée et à suivre vos finances plus efficacement.
+        <div className="w-full h-[calc(120vh-20rem)] flex items-center justify-center">
+            <Card className="w-full max-w-screen-lg min-h-[500px] bg-gray-800 text-white rounded-lg shadow-lg overflow-hidden">
+                <div className="h-full flex flex-col p-6 sm:p-8 space-y-6 overflow-y-auto">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
+                        Mettez à jour votre solde bancaire
+                    </h1>
+
+                    {/* Description avec texte responsive */}
+                    <p className="text-base sm:text-lg md:text-xl text-gray-300">
+                        Pour mieux gérer votre budget, veuillez entrer le montant d&#39;argent
+                        que vous avez actuellement dans votre compte en banque.
+                        <br /><br />
+                        Ce montant nous aidera à vous offrir une expérience personnalisée
+                        et à suivre vos finances plus efficacement.
                     </p>
 
-                    {error && <div className="text-red-600 mt-2 text-lg">{error}</div>}
+                    {error && <div className="text-red-600 text-lg">{error}</div>}
 
-                    <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        {/* Input avec texte responsive */}
                         <Input
                             type="text"
                             value={amount}
                             onChange={(e) => setAmount(e.target.value)}
                             placeholder="Entrez un montant"
-                            className="w-full p-3 border border-gray-300 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                            className="w-full p-4 text-lg border-2 border-gray-600 rounded-xl bg-gray-700 focus:border-blue-500"
                         />
 
+                        {/* Bouton avec texte responsive */}
                         <Button
                             type="submit"
-                            className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"
+                            className="w-full py-4 text-lg bg-blue-600 hover:bg-blue-700 transition-transform"
                         >
                             Mettre à jour le solde
                         </Button>
                     </form>
 
-                    <div className="mt-6 space-y-2">
-                        <Button
-                            onClick={() => router.push("/dashboard")}
-                            className="w-full py-2 text-white bg-black border border-gray-300 rounded-lg hover:bg-gray-700 transition transform hover:scale-105"
-                        >
-                            Retour au dashboard
-                        </Button>
-                    </div>
-                </Card>
-            </div>
+                    <Button
+                        onClick={() => router.push("/dashboard")}
+                        className="w-full py-3 bg-gray-700 hover:bg-gray-600 border border-gray-500"
+                    >
+                        Retour au dashboard
+                    </Button>
+                </div>
+            </Card>
         </div>
     );
 }
