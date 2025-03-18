@@ -149,26 +149,29 @@ export default function Dashboard() {
                     className="w-full max-w-2xl shadow-lg rounded-lg overflow-hidden"
                 >
                     {expenses.map((expense, index) => (
-                        <div key={expense.id || index} className="p-6 bg-gray-800 text-white rounded-lg pb-10">
+                        <div key={expense.id || index} className="p-6 bg-gray-800 text-white rounded-lg relative flex flex-col items-center">
                             <h3 className="text-2xl font-semibold mb-4">{expense.name}</h3>
                             <p className="text-lg">Prix initial : {expense.initialPrice} €</p>
                             <p className="text-lg">Prix actuel : {expense.currentPrice} €</p>
                             <p className="text-lg">
-                                Échéance : {new Date(expense.deadline).getDate().toString().padStart(2, '0')}/{(new Date(expense.deadline).getMonth() + 1).toString().padStart(2, '0')}/{new Date(expense.deadline).getFullYear()}/ {new Date(expense.deadline).toLocaleTimeString()}
+                                Échéance : {new Date(expense.deadline).toLocaleDateString()} {new Date(expense.deadline).toLocaleTimeString()}
                             </p>
-                            <div className="mt-6 flex justify-center space-x-5 w-full">
+
+                            <div className="mt-4 flex justify-between w-full pt-7 rounded-b-lg">
                                 <Button
                                     onClick={() => handleModifyExpense(expense.id)}
-                                    className="py-3 px-4 bg-blue-700 text-white rounded-lg hover:bg-blue-900 transition ease-in-out duration-300 transform hover:scale-105 w-full max-w-xs">
+                                    className="py-3 px-6 bg-blue-700 text-white rounded-lg hover:bg-blue-900 transition ease-in-out duration-300 transform hover:scale-105 w-5/12">
                                     Modifier
                                 </Button>
                                 <Button
                                     onClick={() => handleDeleteExpense(expense.id)}
-                                    className="py-3 px-4 bg-red-600 text-white rounded-lg hover:bg-red-800 transition ease-in-out duration-300 transform hover:scale-105 w-full max-w-xs">
+                                    className="py-3 px-6 bg-red-600 text-white rounded-lg hover:bg-red-800 transition ease-in-out duration-300 transform hover:scale-105 w-5/12">
                                     Supprimer
                                 </Button>
                             </div>
+
                         </div>
+
                     ))}
                 </Carousel>
             )}

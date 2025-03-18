@@ -61,7 +61,7 @@ export default function Register() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ nom, prenom, pseudo, email, password })
+                body: JSON.stringify({ prenom, nom, pseudo, email, password })
             });
 
             const data = await response.json();
@@ -95,17 +95,17 @@ export default function Register() {
                     <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
                         <Input
                             type="text"
-                            name="nom"
-                            placeholder="Nom"
-                            value={formData.nom}
+                            name="prenom"
+                            placeholder="Prénom"
+                            value={formData.prenom}
                             onChange={handleChange}
                             className="w-full p-3 border border-gray-300 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                         />
                         <Input
                             type="text"
-                            name="prenom"
-                            placeholder="Prénom"
-                            value={formData.prenom}
+                            name="nom"
+                            placeholder="Nom"
+                            value={formData.nom}
                             onChange={handleChange}
                             className="w-full p-3 border border-gray-300 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                         />
