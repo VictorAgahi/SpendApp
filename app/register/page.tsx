@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 
 export default function Register() {
     const router = useRouter();
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState<{
         nom: string;
         prenom: string;
