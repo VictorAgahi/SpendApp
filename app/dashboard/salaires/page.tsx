@@ -69,7 +69,7 @@ export default function Salaire() {
                 setError(data.message || "Erreur lors de l'ajout du salaire.");
             }
         } catch (error) {
-            setError("Une erreur s'est produite lors de l'enregistrement du salaire.");
+            setError("Une erreur s'est produite lors de l'enregistrement du salaire. " + error);
         } finally {
             setLoading(false);
         }

@@ -3,7 +3,6 @@ import {usePathname, useRouter} from "next/navigation";
 import Link from "next/link";
 import { Home, Wallet, FileText, User, Banknote } from "lucide-react";
 import {Button} from "@/components/ui/button";
-import {router} from "next/client";
 
 const navItems = [
     { name: "Budgets", href: "/dashboard/budget", icon: Wallet },

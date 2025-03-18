@@ -65,7 +65,7 @@ export default function Depenses() {
                 setError(data.message || "Erreur lors de la création de la dépense.");
             }
         } catch (error) {
-            setError("Une erreur s'est produite lors de l'enregistrement de la dépense.");
+            setError("Une erreur s'est produite lors de l'enregistrement de la dépense. --> " + error);
         } finally {
             setLoading(false);
         }
