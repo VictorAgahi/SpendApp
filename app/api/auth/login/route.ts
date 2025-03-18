@@ -31,14 +31,14 @@ export async function POST(request: Request) {
         }
 
         const token = jwt.sign({ email, nom: user.nom, prenom: user.prenom, pseudo: user.pseudo }, process.env.JWT_SECRET as string, {
-            expiresIn: "7d",
+            expiresIn: "1y",
             algorithm: "HS256",
         });
 
         const cookie = serialize("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            maxAge: 3600,
+            maxAge: 365 * 24 * 3600,
             path: "/",
         });
 
