@@ -72,9 +72,8 @@ export default function Depenses() {
     };
 
     return (
-        <div className="max-w-md w-full text-center">
-        <div className="flex items-center justify-center mt-2 ">
-            <Card className="text-white p-6 rounded-lg shadow-lg max-w-md w-full text-center bg-transparent">
+        <div className="w-full h-[calc(120vh-20rem)] flex items-center justify-center">
+            <Card className="w-full max-w-screen-lg min-h-[500px] bg-gray-800 text-white rounded-lg shadow-lg overflow-hidden">
                 <h1 className="text-4xl font-extrabold text-white mb-4">Ajouter une Dépense</h1>
                 <p className="text-xl text-gray-300 mb-6">
                     Remplissez les informations ci-dessous pour enregistrer une nouvelle dépense.
@@ -133,6 +132,6 @@ export default function Depenses() {
                 </div>
             </Card>
         </div>
-            </div>
+
     );
 }

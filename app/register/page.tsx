@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 
 export default function Register() {
     const router = useRouter();
+    const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState<{
         nom: string;
         prenom: string;
@@ -37,6 +38,7 @@ export default function Register() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
+        setLoading(true);
 
         const { nom, prenom, pseudo, email, password } = formData;
 
@@ -64,6 +66,7 @@ export default function Register() {
                 body: JSON.stringify({ prenom, nom, pseudo, email, password })
             });
 
+
             const data = await response.json();
 
             if (response.ok) {
@@ -76,6 +79,9 @@ export default function Register() {
         } catch (err) {
             console.error(err);
             setError("Une erreur s'est produite lors de l'inscription.");
+        }
+        finally {
+            setLoading(false);
         }
     };
 
@@ -137,7 +143,7 @@ export default function Register() {
                             type="submit"
                             className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition transform hover:scale-105"
                         >
-                            S&#39;inscrire
+                            {loading ? "Chargement..." : "S'inscrire"}
                         </Button>
                     </form>
 
@@ -145,8 +151,9 @@ export default function Register() {
                         <Button
                             onClick={() => router.push("/")}
                             className="w-full py-2 text-white bg-black border border-gray-300 rounded-lg hover:bg-gray-700 transition transform hover:scale-105"
+                            disabled={loading}
                         >
-                            Accueil
+                            Acceuil
                         </Button>
                         <p
                             onClick={() => router.push("/login")}
