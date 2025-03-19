@@ -13,11 +13,14 @@ export default function EditExpense() {
     const [expense, setExpense] = useState<ExpenseDTO>();
     const [loading, setLoading] = useState(true);
     const [amount, setAmount] = useState(0);
+    const [error, setError] = useState<string | null>(null);
     const router = useRouter();
     const { id } = useParams();
 
     useEffect(() => {
         const fetchExpenseData = async () => {
+            setError(null);
+            setLoading(true);
             if (!id) return;
 
             try {
@@ -45,7 +48,8 @@ export default function EditExpense() {
 
     const handleUpdateExpense = async () => {
         if (!expense) return;
-
+        setError(null);
+        setLoading(true);
         try {
             const response = await fetch(`/api/auth/depenses/${id}`, {
                 method: "PUT",
@@ -62,10 +66,19 @@ export default function EditExpense() {
         } catch (error) {
             console.error("Erreur lors de la mise à jour de la dépense:", error);
         }
+        finally {
+            setLoading(false);
+        }
     };
 
     const handleModifyAmount = (modifier: number) => {
         if (!expense) return;
+        setError(null);
+        if (modifier > 100000 || modifier < -100000)
+        {
+            setError("Non Chef");
+            return;
+        }
         const newPrice = parseFloat(expense.currentPrice) + modifier;
         setExpense({ ...expense, currentPrice: newPrice.toFixed(2) });
     };
@@ -79,6 +92,7 @@ export default function EditExpense() {
                 <CardHeader>
                     <CardTitle className="text-center text-2xl font-bold">Modifier la Dépense</CardTitle>
                 </CardHeader>
+                {error && <div className="text-center text-red-600 mt-2 text-lg">{error}</div>}
                 <CardContent>
                     <Label className="block mb-2">Nom de la dépense</Label>
                     <Input
@@ -117,7 +131,7 @@ export default function EditExpense() {
                     />
 
                     <div className="flex justify-between mt-6">
-                        <Button onClick={handleUpdateExpense} className="bg-blue-500 hover:bg-blue-600">
+                        <Button onClick={handleUpdateExpense} className="bg-blue-500 hover:bg-blue-600" disabled={loading}>
                             Mettre à jour
                         </Button>
                         <Button onClick={() => router.push("/dashboard")} className="bg-gray-500 hover:bg-gray-600">

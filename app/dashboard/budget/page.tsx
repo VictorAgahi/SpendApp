@@ -10,6 +10,7 @@ export default function Budget() {
     const [amount, setAmount] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -23,10 +24,17 @@ export default function Budget() {
         e.preventDefault();
         const parsedAmount = parseFloat(amount);
 
-        if (isNaN(parsedAmount) || parsedAmount <= 0) {
+        if (isNaN(parsedAmount) || parsedAmount <= 0 ) {
             setError("Veuillez entrer un montant valide.");
             return;
         }
+        if (parsedAmount >= 1000000)
+        {
+            setError("T'es pas Elon Musk chef");
+            return;
+        }
+
+        setLoading(true);
 
         try {
             const token = localStorage.getItem("token");
@@ -55,6 +63,9 @@ export default function Budget() {
             console.error(err);
             setError("Une erreur s'est produite lors de la connexion.");
         }
+        finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -77,7 +88,6 @@ export default function Budget() {
                     {error && <div className="text-red-600 text-lg">{error}</div>}
 
                     <form onSubmit={handleSubmit} className="space-y-6">
-                        {/* Input avec texte responsive */}
                         <Input
                             type="text"
                             value={amount}
@@ -86,12 +96,12 @@ export default function Budget() {
                             className="w-full p-4 text-lg border-2 border-gray-600 rounded-xl bg-gray-700 focus:border-blue-500"
                         />
 
-                        {/* Bouton avec texte responsive */}
                         <Button
                             type="submit"
                             className="w-full py-4 text-lg bg-blue-600 hover:bg-blue-700 transition-transform"
+                            disabled={loading}
                         >
-                            Mettre à jour le solde
+                            {loading ? "Chargement.. " : "Mettre à jour le solde"}
                         </Button>
                     </form>
 

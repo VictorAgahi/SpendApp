@@ -34,6 +34,11 @@ export default function Salaire() {
             setError("Veuillez entrer un nom et un montant valide.");
             return;
         }
+        if (Number(price) >= 100000)
+        {
+            setError("Chef tu te voiles la face");
+            return;
+        }
         setLoading(true);
         setError(null);
 

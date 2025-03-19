@@ -26,6 +26,7 @@ export default function Dashboard() {
         const fetchUserData = async () => {
             try {
                 const response = await fetch("/api/auth/me", {
+                    method: "GET",
                     headers: {
                         "Authorization": `Bearer ${token}`,
                     },
@@ -70,6 +71,7 @@ export default function Dashboard() {
     };
 
     const handleDeleteExpense = async (expenseId: string) => {
+        setLoading(true);
         try {
             const response = await fetch(`/api/auth/depenses/${expenseId}`, {
                 method: "DELETE",
@@ -85,6 +87,9 @@ export default function Dashboard() {
             }
         } catch (error) {
             console.error("Erreur lors de la suppression de la dépense", error);
+        }
+        finally {
+            setLoading(false);
         }
     };
 
@@ -155,11 +160,13 @@ export default function Dashboard() {
 
                             <div className="mt-4 flex justify-between w-full pt-3 rounded-b-lg">
                                 <Button
+                                    disabled={loading}
                                     onClick={() => handleModifyExpense(expense.id)}
                                     className="py-3 px-6 bg-blue-700 text-white rounded-lg hover:bg-blue-900 transition ease-in-out duration-300 transform hover:scale-105 w-5/12">
                                     Modifier
                                 </Button>
                                 <Button
+                                    disabled={loading}
                                     onClick={() => handleDeleteExpense(expense.id)}
                                     className="py-3 px-6 bg-red-600 text-white rounded-lg hover:bg-red-800 transition ease-in-out duration-300 transform hover:scale-105 w-5/12">
                                     Supprimer

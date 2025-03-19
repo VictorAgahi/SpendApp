@@ -29,6 +29,11 @@ export default function Depenses() {
             setError("Veuillez entrer un nom de dépense, un budget et un nombre de jours valide.");
             return;
         }
+        if (Number(initialPrice) > 100000)
+        {
+            setError("Fait un credit ca ira plus vite");
+            return;
+        }
         setLoading(true);
         setError(null);
 
