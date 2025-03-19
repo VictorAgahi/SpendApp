@@ -122,18 +122,18 @@ export default function Dashboard() {
                 </Button>
             </motion.div>
 
-            <motion.button
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4 }}
-                onClick={handleCreateExpense}
-                className="py-3 px-6 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition ease-in-out duration-300 transform hover:scale-105 mb-6">
-                Ajouter une dépense
-            </motion.button>
 
             {expenses.length === 0 ? (
                 <div className="bg-opacity-75 bg-gradient-to-r from-gray-900 to-gray-800 p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-xl text-gray-800 text-center">
                     <p className="text-white text-xl font-semibold mb-4">Aucune dépense enregistrée.</p>
+                    <motion.button
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.4 }}
+                        onClick={handleCreateExpense}
+                        className="py-3 px-6 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition ease-in-out duration-300 transform hover:scale-105 mb-6">
+                        Ajouter une dépense
+                    </motion.button>
                 </div>
             ) : (
                 <Carousel
