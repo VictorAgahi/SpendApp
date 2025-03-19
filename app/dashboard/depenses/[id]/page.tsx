@@ -74,8 +74,8 @@ export default function EditExpense() {
     if (!expense) return <div className="text-center mt-10 text-red-500">Dépense non trouvée.</div>;
 
     return (
-        <div className="justify-center min-h-screen flex flex-col items-center bg-gradient-to-r from-gray-900 to-gray-700 p-6">
-            <Card className="w-full max-w-lg bg-white bg-opacity-10 backdrop-blur-md shadow-xl text-white">
+        <div className="w-full h-[calc(120vh-20rem)] flex items-center justify-center">
+            <Card className="w-full max-w-screen-lg min-h-[500px] bg-gray-800 text-white rounded-lg shadow-lg overflow-hidden">
                 <CardHeader>
                     <CardTitle className="text-center text-2xl font-bold">Modifier la Dépense</CardTitle>
                 </CardHeader>
