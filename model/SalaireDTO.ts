@@ -1,4 +1,4 @@
-enum TYPE {
+export enum TYPE {
     MONTHLY,
     WEEKLY,
 }
@@ -8,6 +8,6 @@ export interface SalaireDTO {
     name: string;
     duration: TYPE;
     price: number;
-    deadline: string;
-    renewable : boolean
+    date: Date;
+    renewable : boolean;
 }

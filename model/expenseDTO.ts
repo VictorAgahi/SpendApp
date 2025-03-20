@@ -5,5 +5,5 @@ export interface ExpenseDTO {
     initialPrice: string;
     currentPrice: string;
     deadline: string;
-    renewable : boolean
+    renewable : boolean;
 }

@@ -85,7 +85,9 @@ export async function DELETE(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+
         const id = (await params).id;
+        console.log(id.toString());
         const email = await verifyTokenAndGetEmail(request);
         const newId = parseInt(id);
         if (isNaN(newId)) return NextResponse.json({ message: "ID invalide" }, { status: 400 });
