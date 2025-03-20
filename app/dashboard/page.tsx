@@ -282,7 +282,7 @@ export default function Dashboard() {
                         <div className="relative">
                             <select
                                 value={historyType}
-                                onChange={(e) => setHistoryType(e.target.value as any)}
+                                onChange={(e) => setHistoryType(e.target.value as 'all' | 'sent' | 'received')}
                                 className="bg-gray-800 text-white px-4 py-2 rounded-lg appearance-none"
                             >
                                 <option value="all">Toutes</option>
