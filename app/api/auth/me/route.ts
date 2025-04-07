@@ -54,10 +54,13 @@ export async function GET(request: Request) {
                         (userMoney - (renewCount * parseFloat(expense.properties.initialPrice))) * 100
                       ) / 100;                    console.log(updatedMoney);
 
+
                     await session.run(
                         `MATCH (u:User {email: $email})-[:HAS_EXPENSE]->(e:Expense) 
                          WHERE ID(e) = $expenseId 
-                         SET e.deadline = $newDeadline, e.currentPrice = $newCurrentPrice`,
+                         SET e.deadline = $newDeadline, 
+                         e.currentPrice = $newCurrentPrice
+                         SET u.money = round((toFloat(u.money) - toFloat($newCurrentPrice)) * 100) / 100`,
                         {
                             email: payload.email,
                             expenseId: expense.identity,
