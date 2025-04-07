@@ -47,10 +47,12 @@ export async function GET(request: Request) {
                     const newDeadline = new Date(deadline);
                     newDeadline.setDate(deadline.getDate() + (renewCount) * days);
 
-                    const newCurrentPrice = expense.properties.currentPrice + renewCount * expense.properties.initialPrice;
-                    updatedMoney = userMoney - (renewCount * expense.properties.initialPrice);
-                    console.log(updatedMoney);
-                    console.log(newCurrentPrice);
+                    const newCurrentPrice = Math.round(
+                        (parseFloat(expense.properties.currentPrice) + renewCount * parseFloat(expense.properties.initialPrice)) * 100
+                      ) / 100;
+                      updatedMoney = Math.round(
+                        (userMoney - (renewCount * parseFloat(expense.properties.initialPrice))) * 100
+                      ) / 100;                    console.log(updatedMoney);
 
                     await session.run(
                         `MATCH (u:User {email: $email})-[:HAS_EXPENSE]->(e:Expense) 
